@@ -2,13 +2,13 @@
 from datetime import datetime, timedelta
 import unittest
 from app import create_app, db
-from app.models import User
+from app.models.users import User
 from config import Config
 
 
 class TestConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite://'
+    # SQLALCHEMY_DATABASE_URI = 'sqlite://'
 
 
 class UserModelCase(unittest.TestCase):
@@ -20,7 +20,7 @@ class UserModelCase(unittest.TestCase):
 
     def tearDown(self):
         db.session.remove()
-        db.drop_all()
+        # db.drop_all()
         self.app_context.pop()
 
     def test_password_hashing(self):
@@ -28,6 +28,8 @@ class UserModelCase(unittest.TestCase):
         u.set_password('cat')
         self.assertFalse(u.check_password('dog'))
         self.assertTrue(u.check_password('cat'))
+        db.session.add(u)
+        db.session.commit()
 
     def test_avatar(self):
         u = User(username='john', email='john@example.com')

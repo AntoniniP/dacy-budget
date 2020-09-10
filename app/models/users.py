@@ -1,17 +1,19 @@
 import base64
-from datetime import datetime, timedelta
-from hashlib import md5
-import json
 import os
+from datetime import datetime, timedelta
 from time import time
-from flask import current_app, url_for
+
+import jwt
+from flask import current_app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-import jwt
+
 from app import db, login
 
 
 class User(UserMixin, db.Model):
+    # __tablename__ = 'users'
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -78,24 +80,6 @@ class User(UserMixin, db.Model):
         return user
 
 
-class Transaction(db.Model):
-    id = db.Column(db.String(32), primary_key=True)
-    account = db.Column(db.String(80), unique=False, nullable=False)
-    date = db.Column(db.DateTime, unique=False, nullable=False)
-    narration = db.Column(db.String(120), unique=False, nullable=False)
-    amount = db.Column(db.Float, unique=False)
-    balance = db.Column(db.Float, unique=False)
-    added_date = db.Column(
-        db.DateTime, unique=False, nullable=False, default=datetime.utcnow
-    )
-    category = db.Column(db.String(80), nullable=True)
-    sub_category = db.Column(db.String(80), nullable=True)
-
-    def __repr__(self):
-        return "<Transaction %r>" % self.id
-
-
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
-

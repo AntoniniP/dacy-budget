@@ -10,7 +10,7 @@ import dashapp.transactions.layout
 
 def register_callbacks(app):
     from app import db
-    from app.models import Transaction
+    from app.models.transactions import Transaction
 
     def update_changed_data(old_data, data):
         old = pd.DataFrame.from_records(old_data)

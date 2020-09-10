@@ -22,10 +22,17 @@ bootstrap = Bootstrap()
 
 
 def create_app(config_class=Config):
+    """
+    Application setup. Registration and config of Flask, Database, migrate (??), mail and bootstrap functionalities.
+    :param config_class:
+    :return:
+    """
     app = Flask(__name__)
     app.config.from_object(config_class)
 
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
     migrate.init_app(app, db)
     login.init_app(app)
     mail.init_app(app)
@@ -94,4 +101,6 @@ def create_app(config_class=Config):
     return app
 
 
-from app import models
+from app.models.users import User
+from app.models.transactions import Transaction
+from app.models.categories import Category

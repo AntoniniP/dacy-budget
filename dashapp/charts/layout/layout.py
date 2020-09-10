@@ -11,7 +11,7 @@ import plotly.graph_objs as go
 
 def layout(app):
     from app import db
-    from app.models import Transaction
+    from app.models.transactions import Transaction
 
     with app.server.app_context():
         transactions = db.session.query(Transaction)

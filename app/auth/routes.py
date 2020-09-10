@@ -9,7 +9,7 @@ from app.auth.forms import (
     ResetPasswordRequestForm,
     ResetPasswordForm,
 )
-from app.models import User
+from app.models.users import User
 from app.auth.email import send_password_reset_email
 
 

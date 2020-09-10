@@ -13,7 +13,7 @@ import dashapp.charts.layout
 
 def register_callbacks(app):
     from app import db
-    from app.models import Transaction
+    from app.models.transactions import Transaction
 
     with app.server.app_context():
         transactions = db.session.query(Transaction)

@@ -7,7 +7,7 @@ import pandas as pd
 
 def layout(app):
     from app import db
-    from app.models import Transaction
+    from app.models.transactions import Transaction
 
     def gen_conditionals_categories(category_column, sub_category_column):
         categories = {
