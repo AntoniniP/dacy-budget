@@ -16,7 +16,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from sqlalchemy.exc import IntegrityError
 
-from app.models import Transaction
+from app.models.transactions import Transaction
 from config import Config
 
 load_dotenv()

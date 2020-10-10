@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 import unittest
 from app import create_app, db
 from app.models.users import User
+from app.models.transaction_headers import TransactionHeader
+from app.models.transaction_details import TransactionDetail
 from config import Config
 
 
@@ -22,6 +24,19 @@ class UserModelCase(unittest.TestCase):
         db.session.remove()
         # db.drop_all()
         self.app_context.pop()
+
+    def test_transaction_creation(self):
+        TH = TransactionHeader()
+        db.session.add(TH)
+
+        TD1 = TransactionDetail(header=TH, date='2020-12-31', amount=123.45)
+        TD2 = TransactionDetail(header=TH, date='2020-12-31', amount=-123.45)
+        db.session.add(TD1)
+        db.session.add(TD2)
+
+        db.session.commit()
+
+
 
     def test_password_hashing(self):
         u = User(username='susan')

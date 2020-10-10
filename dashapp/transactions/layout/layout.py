@@ -178,6 +178,12 @@ def layout(app):
                     html.Div(id="selection"),
                 ]
             ),
+            dcc.Input(id='input-1-account', type='text', value='Account'),
+            dcc.Input(id='input-2-date', type='text', value='Date'),
+            dcc.Input(id='input-3-narration', type='text', value='Narration'),
+            dcc.Input(id='input-4-amount', type='text', value='Amount'),
+            html.Button(id='submit-button-state', n_clicks=0, children='Submit'),
+            html.Div(id='output-state'),
             html.Div(
                 [
                     dash_table.DataTable(

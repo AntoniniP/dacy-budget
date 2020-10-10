@@ -6,11 +6,40 @@ import pandas as pd
 from collections import OrderedDict
 from sqlalchemy.exc import IntegrityError
 import dashapp.transactions.layout
+from dash.exceptions import PreventUpdate
 
 
 def register_callbacks(app):
     from app import db
     from app.models.transactions import Transaction
+
+######################################################################
+
+    def add_new_transaction(account, date, narration, amount):
+
+        try:
+            transaction = Transaction(id=(date+narration+amount), account=account, date=date, narration=narration, amount=amount)
+            db.session.add(transaction)
+        except IntegrityError as e:
+            print(e)
+            db.session.rollback()
+        else:
+            db.session.commit()
+
+    @app.callback(Output('output-state', 'children'),
+                  [Input('submit-button-state', 'n_clicks')],
+                  [State('input-1-account', 'value'), State('input-2-date', 'value'), State('input-3-narration', 'value'), State('input-4-amount', 'value')]
+                  )
+    def add_db(n_clicks, account, date, narration, amount):
+        if n_clicks is None or n_clicks==0:
+            raise PreventUpdate
+        else:
+            add_new_transaction(account=account, date=date, narration=narration, amount=amount)
+        return u'''
+            The Button has been pressed {} times.
+        '''.format(n_clicks)
+
+####################################################################
 
     def update_changed_data(old_data, data):
         old = pd.DataFrame.from_records(old_data)

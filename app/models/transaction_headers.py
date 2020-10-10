@@ -6,4 +6,4 @@ class TransactionHeader(db.Model):
 
     id = db.Column(db.BigInteger, primary_key=True)
 
-    details = db.relationship("TransactionDetail", back_populates="transaction_headers")
+    details = db.relationship("TransactionDetail", back_populates="header")
