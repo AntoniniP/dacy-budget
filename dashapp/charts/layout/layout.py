@@ -18,7 +18,8 @@ def layout(app):
         df = pd.read_sql(transactions.statement, transactions.session.bind)
 
     df = df[(df.amount < 0) & (df.category != "Credit Card")]
-    df_monthly = df.groupby(df.date.dt.month).agg({"amount": "sum"})
+    #df_monthly = df.groupby(df.date.dt.month).agg({"amount": "sum"})
+    df_monthly = df.groupby(df.date).agg({"amount": "sum"})
     df_cat = (
         df.groupby(df.category)
         .agg({"amount": "sum"})

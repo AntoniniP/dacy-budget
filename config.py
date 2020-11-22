@@ -18,6 +18,13 @@ class Config(object):
         pw=PASSWORD,
         db=DATABASE,
         driver="ODBC Driver 17 for SQL Server".replace(" ", "+"))
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}".format(
+        user = 'postgres',
+        password = 'postgres',
+        host = 'localhost',
+        port = '5432',
+        dbname = 'money_monitor_3'
+    )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOG_TO_STDOUT = os.environ.get("LOG_TO_STDOUT")
     MAIL_SERVER = os.environ.get("MAIL_SERVER")

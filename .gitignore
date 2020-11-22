@@ -1,6 +1,9 @@
 .env
 chromedriver.exe
 logs
+.idea
+_backup
+_downloads
 
 *.py[cod]
 

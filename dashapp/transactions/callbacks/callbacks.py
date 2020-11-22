@@ -35,9 +35,10 @@ def register_callbacks(app):
             raise PreventUpdate
         else:
             add_new_transaction(account=account, date=date, narration=narration, amount=amount)
-        return u'''
-            The Button has been pressed {} times.
-        '''.format(n_clicks)
+
+        #TODO Aggiungere output: Output("transaction_table", "data") -- (vedi sotto)
+
+        return u'The Button has been pressed {} times.'.format(n_clicks)
 
 ####################################################################
 

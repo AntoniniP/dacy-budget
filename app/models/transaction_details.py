@@ -11,5 +11,3 @@ class TransactionDetail(db.Model):
 
     date = db.Column(db.DateTime)
     amount = db.Column(db.Numeric(10, 2))
-
-
