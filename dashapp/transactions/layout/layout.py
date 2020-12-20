@@ -3,6 +3,7 @@ import dash_html_components as html
 import dash_table
 import dash_table.FormatTemplate as FormatTemplate
 import pandas as pd
+import dash_bootstrap_components as dbc
 
 
 def layout(app):
@@ -144,7 +145,21 @@ def layout(app):
 
         accounts = Transaction.query.with_entities(Transaction.account).distinct()
 
-    layout = html.Div(
+    layout = dbc.Container([
+        dbc.Row([
+            dbc.Col(dcc.Input(id='input-1-account', type='text', value='Account'), width="auto"),
+            dbc.Col(dcc.DatePickerSingle(id='input-2-date'), width="auto"),
+            dbc.Col(dcc.Input(id='input-3-narration', type='text', value='Narration'), width="auto"),
+            dbc.Col(dcc.Input(id='input-4-amount', type='number', value='Amount'), width="auto")
+        ]),
+        dbc.Row([
+            dbc.Col(html.Button(id='submit-button-state', children='Submit'), width="auto"),
+            dbc.Col(html.Div(id='output-state'), width="auto")
+        ])
+    ])
+
+
+    layout_OLD = html.Div(
         [
             dcc.Location(id="location"),
             html.Div(id="current_location"),
@@ -182,7 +197,7 @@ def layout(app):
             dcc.Input(id='input-2-date', type='text', value='Date'),
             dcc.Input(id='input-3-narration', type='text', value='Narration'),
             dcc.Input(id='input-4-amount', type='text', value='Amount'),
-            html.Button(id='submit-button-state', n_clicks=0, children='Submit'),
+            html.Button(id='submit-button-state', children='Submit'),
             html.Div(id='output-state'),
             html.Div(
                 [

@@ -7,6 +7,7 @@ from collections import OrderedDict
 from sqlalchemy.exc import IntegrityError
 import dashapp.transactions.layout
 from dash.exceptions import PreventUpdate
+from datetime import date
 
 
 def register_callbacks(app):
@@ -28,13 +29,13 @@ def register_callbacks(app):
 
     @app.callback(Output('output-state', 'children'),
                   [Input('submit-button-state', 'n_clicks')],
-                  [State('input-1-account', 'value'), State('input-2-date', 'value'), State('input-3-narration', 'value'), State('input-4-amount', 'value')]
+                  [State('input-1-account', 'value'), State('input-2-date', 'date'), State('input-3-narration', 'value'), State('input-4-amount', 'value')]
                   )
-    def add_db(n_clicks, account, date, narration, amount):
+    def add_db(n_clicks, account, date_value, narration, amount):
         if n_clicks is None or n_clicks==0:
             raise PreventUpdate
         else:
-            add_new_transaction(account=account, date=date, narration=narration, amount=amount)
+            add_new_transaction(account=account, date=date_value, narration=narration, amount=amount)
 
         #TODO Aggiungere output: Output("transaction_table", "data") -- (vedi sotto)
 
