@@ -7,6 +7,9 @@ _downloads
 
 *.py[cod]
 
+.DS_Store
+pylintrc
+
 # C extensions
 *.so
 

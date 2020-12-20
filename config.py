@@ -23,7 +23,7 @@ class Config(object):
         password = 'postgres',
         host = 'localhost',
         port = '5432',
-        dbname = 'money_monitor_3'
+        dbname = 'dacybudget'
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOG_TO_STDOUT = os.environ.get("LOG_TO_STDOUT")

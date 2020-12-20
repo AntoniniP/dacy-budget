@@ -101,6 +101,6 @@ def create_app(config_class=Config):
     return app
 
 
-from app.models.users import User
-from app.models.transactions import Transaction
-from app.models.categories import Category
+# from app.models.users import User
+# from app.models.transactions import Transaction
+# from app.models.categories import Category
