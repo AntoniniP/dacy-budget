@@ -15,7 +15,7 @@ def add_dash(server):
         "content": "width=device-width, initial-scale=1, shrink-to-fit=no",
     }
     external_stylesheets = [
-        "https://codepen.io/chriddyp/pen/bWLwgP.css",
+        # "https://codepen.io/chriddyp/pen/bWLwgP.css",
         dbc.themes.GRID,
     ]
     app = Dash(

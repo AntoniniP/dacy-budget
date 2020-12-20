@@ -1,5 +1,6 @@
-from flask_migrate import Migrate
+# from flask_migrate import Migrate
 from app import create_app, db
+
 from app.models.users import User
 from app.models.transactions import Transaction
 from app.models.categories import Category
@@ -12,6 +13,9 @@ app = create_app()
 
 @app.shell_context_processor
 def make_shell_context():
+    """
+    Required by Flask: register all database odbjects.
+    """
     return dict(
         db=db,
         User=User,
