@@ -8,6 +8,8 @@ from sqlalchemy.exc import IntegrityError
 import dashapp.transactions.layout
 from dash.exceptions import PreventUpdate
 from datetime import date
+from datetime import datetime
+import dash_bootstrap_components as dbc
 
 
 def register_callbacks(app):
@@ -19,7 +21,7 @@ def register_callbacks(app):
     def add_new_transaction(account, date, narration, amount):
 
         try:
-            transaction = Transaction(id=(date+narration+amount), account=account, date=date, narration=narration, amount=amount)
+            transaction = Transaction(id=(datetime.now()), account=account, date=date, narration=narration, amount=amount)
             db.session.add(transaction)
         except IntegrityError as e:
             print(e)
@@ -27,7 +29,7 @@ def register_callbacks(app):
         else:
             db.session.commit()
 
-    @app.callback(Output('output-state', 'children'),
+    @app.callback(Output("transactions-table", "children"), #Output("transaction_table", "data"),
                   [Input('submit-button-state', 'n_clicks')],
                   [State('input-1-account', 'value'), State('input-2-date', 'date'), State('input-3-narration', 'value'), State('input-4-amount', 'value')]
                   )
@@ -36,10 +38,13 @@ def register_callbacks(app):
             raise PreventUpdate
         else:
             add_new_transaction(account=account, date=date_value, narration=narration, amount=amount)
+        
+        with app.server.app_context():
+            transactions = db.session.query(Transaction)
+            df = pd.read_sql(transactions.statement, transactions.session.bind)
 
-        #TODO Aggiungere output: Output("transaction_table", "data") -- (vedi sotto)
-
-        return u'The Button has been pressed {} times.'.format(n_clicks)
+        #return u'The Button has been pressed {} times.'.format(n_clicks)#, 
+        return dbc.Table.from_dataframe(df.sort_values("added_date"), striped=True, bordered=True, hover=True)
 
 ####################################################################
 

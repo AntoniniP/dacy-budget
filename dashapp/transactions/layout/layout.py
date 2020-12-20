@@ -155,113 +155,116 @@ def layout(app):
         dbc.Row([
             dbc.Col(html.Button(id='submit-button-state', children='Submit'), width="auto"),
             dbc.Col(html.Div(id='output-state'), width="auto")
+        ]),
+        dbc.Row([
+            html.Div(id='transactions-table', children=dbc.Table.from_dataframe(df.sort_values("added_date"), id="transaction_table", striped=True, bordered=True, hover=True))
         ])
     ])
 
 
-    layout_OLD = html.Div(
-        [
-            dcc.Location(id="location"),
-            html.Div(id="current_location"),
-            html.Details(
-                [
-                    html.Summary("Filters"),
-                    html.Div(
-                        [
-                            dcc.Dropdown(
-                                id="account_selector",
-                                options=[
-                                    {"label": a[0], "value": a[0]} for a in accounts
-                                ],
-                                placeholder="Select account...",
-                            ),
-                            dcc.Dropdown(
-                                id="uncategorised_selector",
-                                options=[
-                                    {
-                                        "label": "Uncategorised",
-                                        "value": "uncategorised",
-                                    },
-                                    {"label": "All", "value": "all"},
-                                ],
-                                value="uncategorised",
-                                clearable=False,
-                            ),
-                        ],
-                        style={"width": "100%", "display": "inline-block"},
-                    ),
-                    html.Div(id="selection"),
-                ]
-            ),
-            dcc.Input(id='input-1-account', type='text', value='Account'),
-            dcc.Input(id='input-2-date', type='text', value='Date'),
-            dcc.Input(id='input-3-narration', type='text', value='Narration'),
-            dcc.Input(id='input-4-amount', type='text', value='Amount'),
-            html.Button(id='submit-button-state', children='Submit'),
-            html.Div(id='output-state'),
-            html.Div(
-                [
-                    dash_table.DataTable(
-                        id="transaction_table",
-                        data=df.sort_values("added_date").to_dict("rows"),
-                        columns=[
-                            {
-                                "id": "id",
-                                "name": "Hash",
-                                "type": "text",
-                                "hidden": True,
-                            },
-                            {
-                                "id": "added_date",
-                                "name": "Added",
-                                "type": "text",
-                                "hidden": True,
-                            },
-                            {"id": "date", "name": "Date", "type": "text"},
-                            {"id": "narration", "name": "Narration", "type": "text"},
-                            {
-                                "id": "amount",
-                                "name": "Amount",
-                                "type": "numeric",
-                                "format": FormatTemplate.money(2),
-                            },
-                            {
-                                "id": "category",
-                                "name": "Category",
-                                "presentation": "dropdown",
-                                "min-width": "200px",
-                            },
-                            {
-                                "id": "sub_category",
-                                "name": "Sub-category",
-                                "presentation": "dropdown",
-                                "min-width": "200px",
-                            },
-                        ],
-                        # style_cell={"padding": "5px"},
-                        style_header={"backgroundColor": "white", "fontWeight": "bold"},
-                        editable=True,
-                        filter_action="native",
-                        sort_action="native",
-                        sort_mode="multi",
-                        page_action="native",
-                        page_current=0,
-                        page_size=15,
-                        dropdown=conditional_dict,
-                        dropdown_conditional=sub_conditional_list,
-                        style_data={"whiteSpace": "normal"},
-                        css=[
-                            {
-                                "selector": ".dash-cell div.dash-cell-value",
-                                "rule": "display: inline; white-space: inherit; overflow: inherit; text-overflow: inherit;",
-                            }
-                        ],
-                    )
-                ],
-                id="main",
-                style={"width": "95%"},
-            ),
-        ]
-    )
+    # layout_OLD = html.Div(
+    #     [
+    #         dcc.Location(id="location"),
+    #         html.Div(id="current_location"),
+    #         html.Details(
+    #             [
+    #                 html.Summary("Filters"),
+    #                 html.Div(
+    #                     [
+    #                         dcc.Dropdown(
+    #                             id="account_selector",
+    #                             options=[
+    #                                 {"label": a[0], "value": a[0]} for a in accounts
+    #                             ],
+    #                             placeholder="Select account...",
+    #                         ),
+    #                         dcc.Dropdown(
+    #                             id="uncategorised_selector",
+    #                             options=[
+    #                                 {
+    #                                     "label": "Uncategorised",
+    #                                     "value": "uncategorised",
+    #                                 },
+    #                                 {"label": "All", "value": "all"},
+    #                             ],
+    #                             value="uncategorised",
+    #                             clearable=False,
+    #                         ),
+    #                     ],
+    #                     style={"width": "100%", "display": "inline-block"},
+    #                 ),
+    #                 html.Div(id="selection"),
+    #             ]
+    #         ),
+    #         dcc.Input(id='input-1-account', type='text', value='Account'),
+    #         dcc.Input(id='input-2-date', type='text', value='Date'),
+    #         dcc.Input(id='input-3-narration', type='text', value='Narration'),
+    #         dcc.Input(id='input-4-amount', type='text', value='Amount'),
+    #         html.Button(id='submit-button-state', children='Submit'),
+    #         html.Div(id='output-state'),
+    #         html.Div(
+    #             [
+    #                 dash_table.DataTable(
+    #                     id="transaction_table",
+    #                     data=df.sort_values("added_date").to_dict("rows"),
+    #                     columns=[
+    #                         {
+    #                             "id": "id",
+    #                             "name": "Hash",
+    #                             "type": "text",
+    #                             "hidden": True,
+    #                         },
+    #                         {
+    #                             "id": "added_date",
+    #                             "name": "Added",
+    #                             "type": "text",
+    #                             "hidden": True,
+    #                         },
+    #                         {"id": "date", "name": "Date", "type": "text"},
+    #                         {"id": "narration", "name": "Narration", "type": "text"},
+    #                         {
+    #                             "id": "amount",
+    #                             "name": "Amount",
+    #                             "type": "numeric",
+    #                             "format": FormatTemplate.money(2),
+    #                         },
+    #                         {
+    #                             "id": "category",
+    #                             "name": "Category",
+    #                             "presentation": "dropdown",
+    #                             "min-width": "200px",
+    #                         },
+    #                         {
+    #                             "id": "sub_category",
+    #                             "name": "Sub-category",
+    #                             "presentation": "dropdown",
+    #                             "min-width": "200px",
+    #                         },
+    #                     ],
+    #                     # style_cell={"padding": "5px"},
+    #                     style_header={"backgroundColor": "white", "fontWeight": "bold"},
+    #                     editable=True,
+    #                     filter_action="native",
+    #                     sort_action="native",
+    #                     sort_mode="multi",
+    #                     page_action="native",
+    #                     page_current=0,
+    #                     page_size=15,
+    #                     dropdown=conditional_dict,
+    #                     dropdown_conditional=sub_conditional_list,
+    #                     style_data={"whiteSpace": "normal"},
+    #                     css=[
+    #                         {
+    #                             "selector": ".dash-cell div.dash-cell-value",
+    #                             "rule": "display: inline; white-space: inherit; overflow: inherit; text-overflow: inherit;",
+    #                         }
+    #                     ],
+    #                 )
+    #             ],
+    #             id="main",
+    #             style={"width": "95%"},
+    #         ),
+    #     ]
+    # )
 
     return layout
