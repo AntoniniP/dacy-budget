@@ -1,6 +1,13 @@
 name: Pylint
 
-on: [push]
+on: 
+  [push]:
+    paths-ignore: 
+      - '.devcontainer/**'
+      - '.github/**'
+      - '.vscode/**'
+      - '_backup/**'
+      - 'migrations/**'
 
 jobs:
   build:
