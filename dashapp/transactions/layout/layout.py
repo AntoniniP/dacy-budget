@@ -4,146 +4,146 @@ import dash_table
 import dash_table.FormatTemplate as FormatTemplate
 import pandas as pd
 import dash_bootstrap_components as dbc
+from .. import create_table
 
 
 def layout(app):
     from app import db
     from app.models.transactions import Transaction
 
-    def gen_conditionals_categories(category_column, sub_category_column):
-        categories = {
-            "Income": [
-                "Salary",
-                "Bonuses",
-                "Gifts",
-                "Dividends",
-                "Savings",
-                "Tax Return",
-                "Sold Item",
-            ],
-            "Credit Card": ["Bill", "Payment"],
-            "Insurance": [
-                "Health Insurance",
-                "Bike Insurance",
-                "Car Insurance",
-                "Pet Insurance",
-                "Home Insurance",
-                "Mortgage Insurance",
-                "Life Insurance",
-            ],
-            "Housing": [
-                "Mortgage",
-                "Rent",
-                "Accountant Fee",
-                "Security",
-                "Home maintenance",
-            ],
-            "Children": [
-                "Childcare",
-                "School Fees",
-                "School activities",
-                "Toys",
-                "Allowance",
-                "School supplies",
-                "Babysitter",
-                "Daycare",
-            ],
-            "Entertainment": [
-                "Events",
-                "Movies",
-                "Charity Rides",
-                "Experiences",
-                "Games",
-            ],
-            "Health Beauty": [
-                "Health Fitness",
-                "Hairdresser",
-                "Optical",
-                "Medical",
-                "Medication",
-                "Dental",
-            ],
-            "Utilities": [
-                "Gas Bill",
-                "Water Bill",
-                "Rates",
-                "Electricity",
-                "Phone Bill",
-            ],
-            "Memberships": [
-                "Music subscription",
-                "Internet",
-                "Strava",
-                "Google storage",
-                "Media subscription",
-            ],
-            "Travel": ["Accommodation", "Flights", "Airbnb"],
-            "Food": [
-                "Cafe Coffee",
-                "Resturants",
-                "Takeaway",
-                "Bars Pubs",
-                "Groceries",
-                "Alcohol",
-            ],
-            "Shopping": [
-                "Bike Stuff",
-                "Clothing Footwear",
-                "Beauty",
-                "Books",
-                "Electronics Software",
-                "Home supplies",
-                "Birthday gifts",
-                "Christmas gifts",
-                "Wedding gifts",
-                "Anniversary",
-                "Other shopping",
-            ],
-            "Transportation": [
-                "Uber Taxi",
-                "Car Loan",
-                "Car maintenance",
-                "Car registration",
-                "Bike maintenance",
-                "Public transport",
-                "Roadside assistance",
-                "Parking",
-            ],
-            "Pets": ["Vet", "Emergency", "Pet supplies", "Pet sitter", "Pet food"],
-            "Education": ["Work", "Other"],
-            "Miscellaneous": ["Charity Donations", "Hecs", "Fines"],
-        }
+    # def gen_conditionals_categories(category_column, sub_category_column):
+    #     categories = {
+    #         "Income": [
+    #             "Salary",
+    #             "Bonuses",
+    #             "Gifts",
+    #             "Dividends",
+    #             "Savings",
+    #             "Tax Return",
+    #             "Sold Item",
+    #         ],
+    #         "Credit Card": ["Bill", "Payment"],
+    #         "Insurance": [
+    #             "Health Insurance",
+    #             "Bike Insurance",
+    #             "Car Insurance",
+    #             "Pet Insurance",
+    #             "Home Insurance",
+    #             "Mortgage Insurance",
+    #             "Life Insurance",
+    #         ],
+    #         "Housing": [
+    #             "Mortgage",
+    #             "Rent",
+    #             "Accountant Fee",
+    #             "Security",
+    #             "Home maintenance",
+    #         ],
+    #         "Children": [
+    #             "Childcare",
+    #             "School Fees",
+    #             "School activities",
+    #             "Toys",
+    #             "Allowance",
+    #             "School supplies",
+    #             "Babysitter",
+    #             "Daycare",
+    #         ],
+    #         "Entertainment": [
+    #             "Events",
+    #             "Movies",
+    #             "Charity Rides",
+    #             "Experiences",
+    #             "Games",
+    #         ],
+    #         "Health Beauty": [
+    #             "Health Fitness",
+    #             "Hairdresser",
+    #             "Optical",
+    #             "Medical",
+    #             "Medication",
+    #             "Dental",
+    #         ],
+    #         "Utilities": [
+    #             "Gas Bill",
+    #             "Water Bill",
+    #             "Rates",
+    #             "Electricity",
+    #             "Phone Bill",
+    #         ],
+    #         "Memberships": [
+    #             "Music subscription",
+    #             "Internet",
+    #             "Strava",
+    #             "Google storage",
+    #             "Media subscription",
+    #         ],
+    #         "Travel": ["Accommodation", "Flights", "Airbnb"],
+    #         "Food": [
+    #             "Cafe Coffee",
+    #             "Resturants",
+    #             "Takeaway",
+    #             "Bars Pubs",
+    #             "Groceries",
+    #             "Alcohol",
+    #         ],
+    #         "Shopping": [
+    #             "Bike Stuff",
+    #             "Clothing Footwear",
+    #             "Beauty",
+    #             "Books",
+    #             "Electronics Software",
+    #             "Home supplies",
+    #             "Birthday gifts",
+    #             "Christmas gifts",
+    #             "Wedding gifts",
+    #             "Anniversary",
+    #             "Other shopping",
+    #         ],
+    #         "Transportation": [
+    #             "Uber Taxi",
+    #             "Car Loan",
+    #             "Car maintenance",
+    #             "Car registration",
+    #             "Bike maintenance",
+    #             "Public transport",
+    #             "Roadside assistance",
+    #             "Parking",
+    #         ],
+    #         "Pets": ["Vet", "Emergency", "Pet supplies", "Pet sitter", "Pet food"],
+    #         "Education": ["Work", "Other"],
+    #         "Miscellaneous": ["Charity Donations", "Hecs", "Fines"],
+    #     }
 
-        conditional_dict = {
-            category_column: {
-                "options": [{"label": i, "value": i} for i in sorted(categories.keys())]
-            }
-        }
+    #     conditional_dict = {
+    #         category_column: {
+    #             "options": [{"label": i, "value": i} for i in sorted(categories.keys())]
+    #         }
+    #     }
 
-        sub_conditional_list = [
-            {
-                "if": {
-                    "column_id": sub_category_column,
-                    "filter_query": f'{{{category_column}}} eq "{category}"',
-                },
-                "options": [
-                    {"label": i, "value": i} for i in sorted(categories[category])
-                ],
-            }
-            for category in categories.keys()
-        ]
+    #     sub_conditional_list = [
+    #         {
+    #             "if": {
+    #                 "column_id": sub_category_column,
+    #                 "filter_query": f'{{{category_column}}} eq "{category}"',
+    #             },
+    #             "options": [
+    #                 {"label": i, "value": i} for i in sorted(categories[category])
+    #             ],
+    #         }
+    #         for category in categories.keys()
+    #     ]
+    #     return conditional_dict, sub_conditional_list
 
-        return conditional_dict, sub_conditional_list
-
-    conditional_dict, sub_conditional_list = gen_conditionals_categories(
-        "category", "sub_category"
-    )
+    # conditional_dict, sub_conditional_list = gen_conditionals_categories(
+    #     "category", "sub_category"
+    # )
 
     with app.server.app_context():
         transactions = db.session.query(Transaction)
         df = pd.read_sql(transactions.statement, transactions.session.bind)
 
-        accounts = Transaction.query.with_entities(Transaction.account).distinct()
+        # accounts = Transaction.query.with_entities(Transaction.account).distinct()
 
     layout = dbc.Container([
         dbc.Row([
@@ -157,7 +157,7 @@ def layout(app):
             dbc.Col(html.Div(id='output-state'), width="auto")
         ]),
         dbc.Row([
-            html.Div(id='transactions-table', children=dbc.Table.from_dataframe(df.sort_values("added_date"), id="transaction_table", striped=True, bordered=True, hover=True))
+            dbc.Col(html.Div(id='transactions-table', children=create_table(df)), width="auto")
         ])
     ])
 
