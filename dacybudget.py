@@ -6,6 +6,7 @@ from app.models.transactions import Transaction
 from app.models.categories import Category
 from app.models.transaction_details import TransactionDetail
 from app.models.transaction_headers import TransactionHeader
+from app.models.wallets import Wallet
 
 
 app = create_app()
@@ -22,7 +23,8 @@ def make_shell_context():
         Transaction=Transaction,
         Category=Category,
         TransactionDetail=TransactionDetail,
-        TransactionHeader=TransactionHeader
+        TransactionHeader=TransactionHeader,
+        Wallet=Wallet
     )
 
 
