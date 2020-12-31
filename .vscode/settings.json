@@ -24,4 +24,9 @@
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
     "python.languageServer": "Microsoft",
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_flask_sqlalchemy",
+        "pylint_flask",                 
+    ]
 }
