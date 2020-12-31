@@ -20,5 +20,8 @@
             "username": "postgres",
             "password": "postgres"
         }
-    ]
+    ],
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.languageServer": "Microsoft",
 }
