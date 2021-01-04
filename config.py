@@ -6,19 +6,10 @@ load_dotenv(os.path.join(basedir, ".env"))
 
 
 class Config(object):
-    USERNAME = "sa"
-    PASSWORD = "Paolino_93"
-    DATABASE = "money_monitor_3"
-
     SECRET_KEY = os.environ.get("SECRET_KEY") or "you-will-never-guess"
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "DATABASE_URL"
-    ) or "mssql+pyodbc://{user}:{pw}@localhost/{db}?driver={driver}".format(
-        user=USERNAME,
-        pw=PASSWORD,
-        db=DATABASE,
-        driver="ODBC Driver 17 for SQL Server".replace(" ", "+"))
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}".format(
+    ) or "postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}".format(
         user = 'postgres',
         password = 'postgres',
         host = 'localhost',
