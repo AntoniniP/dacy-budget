@@ -10,6 +10,7 @@ from dash.exceptions import PreventUpdate
 from datetime import date
 from datetime import datetime
 import dash_bootstrap_components as dbc
+import app.controller.transactions as contr #import new_transaction
 
 
 def register_callbacks(app):
@@ -38,6 +39,7 @@ def register_callbacks(app):
             raise PreventUpdate
         else:
             add_new_transaction(account=account, date=date_value, narration=narration, amount=amount)
+            contr.new_transaction()
         
         with app.server.app_context():
             transactions = db.session.query(Transaction)
