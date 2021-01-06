@@ -11,6 +11,6 @@ class Wallet(db.Model):
     description = db.Column(db.String(255))
     initial_balance = db.Column(db.Numeric(18,4))
     default_currency = db.Column(db.String(3))
-    # user
+    user = db.Column(db.Integer)
     
     transactions = db.relationship("TransactionDetail", back_populates="wallet")
