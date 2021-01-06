@@ -1,4 +1,4 @@
-# from flask_migrate import Migrate
+from flask_migrate import Migrate
 from app import create_app, db
 
 from app.models.users import User
