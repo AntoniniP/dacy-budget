@@ -116,4 +116,3 @@ def register_callbacks(app):
             ]
 
         return df_selected.sort_values("added_date").to_dict("rows")
-
