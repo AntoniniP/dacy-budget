@@ -21,12 +21,11 @@
             "password": "postgres"
         }
     ],
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": true,
     "python.languageServer": "Pylance",
     "python.linting.pylintArgs": [
         "--load-plugins",
         "pylint_flask_sqlalchemy",
-        "pylint_flask",                 
+        "pylint_flask", 
+        "pylint_sqlalchemy"                
     ]
 }
