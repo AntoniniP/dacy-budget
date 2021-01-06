@@ -19,5 +19,3 @@ def new_wallet(description, initial_balance, default_currency):
         db.session.rollback()
     else:
         db.session.commit()
-
-    
