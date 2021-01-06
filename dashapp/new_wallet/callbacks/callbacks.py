@@ -25,5 +25,3 @@ def register_callbacks(app):
             controller.new_wallet(description, initial_balance, default_currency)
         
         return u'The Button has been pressed {} times.'.format(n_clicks)
-
-
