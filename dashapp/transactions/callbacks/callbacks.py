@@ -46,7 +46,7 @@ def register_callbacks(app):
             df = pd.read_sql(transactions.statement, transactions.session.bind)
 
         #return u'The Button has been pressed {} times.'.format(n_clicks)#, 
-        return dbc.Table.from_dataframe(df.sort_values("added_date"), striped=True, bordered=True, hover=True)
+        return dbc.Table.from_dataframe(df.sort_values(by="added_date", ascending=False), striped=True, bordered=True, hover=True)
 
 ####################################################################
 
