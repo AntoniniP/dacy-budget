@@ -23,7 +23,7 @@ bootstrap = Bootstrap()
 
 def create_app(config_class=Config):
     """
-    Application setup. Registration and config of Flask, Database, migrate (??), mail and bootstrap functionalities.
+    Application setup. Registration and config of Flask, Database, Migrate, mail and bootstrap functionalities.
     :param config_class:
     :return:
     """
