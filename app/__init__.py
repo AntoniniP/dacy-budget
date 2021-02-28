@@ -38,6 +38,9 @@ def create_app(config_class=Config):
     mail.init_app(app)
     bootstrap.init_app(app)
 
+    app.config['BOOTSTRAP_SERVE_LOCAL'] = False
+    app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'Default'
+
     app = dash_transactions.add_dash(app)
     app = dash_charts.add_dash(app)
     app = dash_new_wallet.add_dash(app)

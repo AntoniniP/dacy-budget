@@ -15,7 +15,7 @@ Click==7.0
 colorama==0.4.1
 cryptography==3.3.2
 dash==1.16.3
-dash-bootstrap-components==0.10.7
+dash-bootstrap-components
 dash-core-components==1.12.1
 dash-html-components==1.1.1
 dash-renderer==1.8.2
@@ -24,7 +24,9 @@ decorator==4.4.0
 docopt==0.6.2
 dominate==2.3.5
 Flask==1.1.2
-Flask-Bootstrap==3.3.7.1
+# Flask-Bootstrap==3.3.7.1
+bootstrap-flask
+email_validator
 Flask-Compress==1.7.0
 Flask-Login==0.5.0
 Flask-Mail==0.9.1

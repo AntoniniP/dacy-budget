@@ -1,10 +1,11 @@
-{% extends 'bootstrap/base.html' %}
+{% extends './bootstrap_base.html' %}
 
 {% block title %}
 {% if title %}{{ title }} - Dacy Budget{% else %}{{ 'Welcome to Dacy Budget' }}{% endif %}
 {% endblock %}
 
 {% block navbar %}
+{# https://bootstrap-flask.readthedocs.io/en/latest/macros.html#render-nav-item #}
 <nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">

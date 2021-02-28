@@ -5,6 +5,8 @@ logs
 _backup
 _downloads
 
+migrations
+
 *.py[cod]
 
 .DS_Store

@@ -17,7 +17,7 @@ def add_dash(server):
     app = Dash(
         server=server,
         url_base_pathname=url_base,
-        meta_tags=[meta_viewport],
+        # meta_tags=[meta_viewport],
         external_stylesheets=external_stylesheets,
     )
     app.url_base_pathname = url_base
