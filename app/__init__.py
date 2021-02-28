@@ -39,7 +39,7 @@ def create_app(config_class=Config):
     bootstrap.init_app(app)
 
     app.config['BOOTSTRAP_SERVE_LOCAL'] = False
-    app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'Default'
+    # app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'bootstrap'
 
     app = dash_transactions.add_dash(app)
     app = dash_charts.add_dash(app)
