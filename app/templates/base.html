@@ -1,29 +1,25 @@
 {% extends './bootstrap_base.html' %}
+{% from 'bootstrap/nav.html' import render_nav_item %}
 
 {% block title %}
 {% if title %}{{ title }} - Dacy Budget{% else %}{{ 'Welcome to Dacy Budget' }}{% endif %}
 {% endblock %}
 
 {% block navbar %}
-{# https://bootstrap-flask.readthedocs.io/en/latest/macros.html#render-nav-item #}
-<nav class="navbar navbar-default">
+<!-- {# https://bootstrap-flask.readthedocs.io/en/latest/macros.html#render-nav-item #} -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">Dacy Budget</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('main.index') }}">{{ 'Home' }}</a></li>
-                <li><a href="/dashboard/transactions">{{ 'Transactions' }}</a></li>
-                <li><a href="/dashboard/charts">{{ 'Charts' }}</a></li>
-                <li><a href="/dashboard/new_wallet">{{ 'New Wallet' }}</a></li>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">Dacy Budget</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">{{ 'Home' }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dashboard/transactions">{{ 'Transactions' }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dashboard/charts">{{ 'Charts' }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dashboard/new_wallet">{{ 'New Wallet' }}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_anonymous %}
